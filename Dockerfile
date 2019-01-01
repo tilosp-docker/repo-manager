@@ -24,3 +24,9 @@ RUN set -ex; \
     useradd -u 1000 -g 1000 -m -s /bin/bash repo-manager
 
 USER repo-manager
+
+WORKDIR /home/repo-manager
+
+EXPOSE 8080
+
+CMD ["repo-manager"]

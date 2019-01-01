@@ -8,14 +8,15 @@ WORKDIR repo-manager
 
 RUN cargo build --release
 
-FROM debian:stretch-slim
+FROM fedora
 
 RUN set -ex; \
-	apt-get update; \
-	apt-get install -y --no-install-recommends \
-        libpq5 \
-    ; \
-    rm -rf /var/lib/apt/lists/*
+	dnf install -y \
+		postgresql-libs \
+		flatpak \
+		ostree \
+	; \
+	dnf clean all
 
 COPY --from=build /repo-manager/target/release/gentoken /repo-manager/target/release/repo-manager /usr/bin/
 
